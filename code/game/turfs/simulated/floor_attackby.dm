@@ -5,6 +5,8 @@
 
 	if(flooring)
 		if(istype(C, /obj/item/weapon/crowbar))
+			if (user.a_intent != I_HELP)
+				return
 			if(broken || burnt)
 				user << "<span class='notice'>You remove the broken [flooring.descriptor].</span>"
 				make_plating()
