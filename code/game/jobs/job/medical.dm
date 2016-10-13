@@ -32,7 +32,7 @@
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 			if(5) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/messenger/med(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chief_medical_officer(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/leather(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/heads/cmo(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/toggle/labcoat(H), slot_wear_suit)
@@ -58,7 +58,7 @@
 	equip(var/mob/living/carbon/human/H, var/alt_title)
 		if(!H)	return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/leather(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
@@ -125,7 +125,7 @@
 		if(!H)	return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chemist(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/leather(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/chemist(H), slot_belt)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/chemistry(H), slot_back)
@@ -191,12 +191,12 @@
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 			if(5) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/messenger(H), slot_back)
 		if(has_alt_title(H, alt_title,"Psychiatrist"))
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/psych(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 		else if(has_alt_title(H, alt_title,"Psychologist"))
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/psych/turtleneck(H), slot_w_uniform)
 		else
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/leather(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/medical(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/toggle/labcoat(H), slot_wear_suit)
 
@@ -220,7 +220,7 @@
 	equip(var/mob/living/carbon/human/H, var/alt_title)
 		if(!H)	return 0
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_med(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/leather(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(H), slot_l_hand)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/medic(H), slot_back)
@@ -228,13 +228,13 @@
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 			if(5) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/messenger/med(H), slot_back)
 		if(has_alt_title(H, alt_title,"Emergency Medical Technician"))
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical/paramedic(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/toggle/fr_jacket(H), slot_wear_suit)
 		else if(has_alt_title(H, alt_title,"Paramedic"))
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical/black(H), slot_w_uniform)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/toggle/fr_jacket(H), slot_wear_suit)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 		else
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/medical(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/scientist(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/medical/emt(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/medical(H), slot_l_store)
 		return 1

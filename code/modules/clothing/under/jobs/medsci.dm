@@ -21,9 +21,20 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/*
 /obj/item/clothing/under/rank/scientist
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has markings that denote the wearer as a scientist."
 	name = "scientist's jumpsuit"
+	icon_state = "science"
+	item_state_slots = list(slot_r_hand_str = "white", slot_l_hand_str = "white")
+	permeability_coefficient = 0.50
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 0, rad = 0)
+	rolled_sleeves = 0
+*/
+
+/obj/item/clothing/under/rank/scientist
+	desc = "The standard uniform of a Black Mesa employee."
+	name = "scientist's uniform"
 	icon_state = "science"
 	item_state_slots = list(slot_r_hand_str = "white", slot_l_hand_str = "white")
 	permeability_coefficient = 0.50
@@ -200,3 +211,4 @@
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	rolled_sleeves = 0
+
