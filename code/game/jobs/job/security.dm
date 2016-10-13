@@ -156,12 +156,5 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/vest(H), slot_wear_suit)
 
-		//I had to keep these because without them you spawn with the emergency box in your hand
-		//I'm not sure how you make it so you dont spawn with said box, so until then these'll stay -Flatgub
-		switch(H.backbag)
-			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
-			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel/norm(H), slot_back)
-			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
-			if(5) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/messenger(H), slot_back)
 
 		return 1
