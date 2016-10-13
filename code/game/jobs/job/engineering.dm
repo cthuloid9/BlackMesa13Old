@@ -46,7 +46,7 @@
 
 	equip_survival(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.species.equip_survival_gear(H,1)
+		H.species.equip_survival_gear(H)
 		return 1
 
 
@@ -85,7 +85,7 @@
 
 	equip_survival(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.species.equip_survival_gear(H,1)
+		H.species.equip_survival_gear(H)
 		return 1
 
 
@@ -122,5 +122,5 @@
 
 	equip_survival(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		H.species.equip_survival_gear(H,1)
+		H.species.equip_survival_gear(H)
 		return 1
