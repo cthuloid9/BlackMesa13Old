@@ -54,13 +54,13 @@
 
 /obj/item/weapon/storage/box/survival/New()
 	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/weapon/tank/emergency_oxygen(src)
+	for(var/i = 1 to 2)
+		new /obj/item/device/flashlight/flare(src)
 
-/obj/item/weapon/storage/box/engineer/New()
+/*/obj/item/weapon/storage/box/engineer/New()
 	..()
 	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/weapon/tank/emergency_oxygen/engi(src)
+	new /obj/item/weapon/tank/emergency_oxygen/engi(src)*/
 
 /obj/item/weapon/storage/box/gloves
 	name = "box of latex gloves"
