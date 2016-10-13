@@ -105,7 +105,7 @@
 /datum/gear/suit/labcoat
 	display_name = "labcoat"
 	path = /obj/item/clothing/suit/storage/toggle/labcoat
-
+/*
 /datum/gear/suit/labcoat/blue
 	display_name = "labcoat, blue"
 	path = /obj/item/clothing/suit/storage/toggle/labcoat/blue
@@ -138,7 +138,7 @@
 	display_name = "labcoat, EMT (Medical)"
 	path = /obj/item/clothing/suit/storage/toggle/labcoat/emt
 	allowed_roles = list("Medical Doctor","Chief Medical Officer","Chemist","Paramedic","Geneticist")
-
+*/
 /datum/gear/suit/overalls
 	display_name = "overalls"
 	path = /obj/item/clothing/suit/apron/overalls
