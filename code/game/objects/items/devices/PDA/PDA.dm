@@ -416,7 +416,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	new /obj/item/weapon/pen(src)
 	pdachoice = isnull(H) ? 1 : (ishuman(H) ? H.pdachoice : 1)
 	switch(pdachoice)
-		if(1) icon = 'icons/obj/pda.dmi'
+		if(1) icon = 'icons/obj/pda_bm13.dmi'
 		if(2) icon = 'icons/obj/pda_old.dmi' //Add 'default' to the end of pdachoicelist in global_lists.dm to have this back
 		else
 			icon = 'icons/obj/pda_old.dmi'
