@@ -70,47 +70,47 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/medical
 	default_cartridge = /obj/item/weapon/cartridge/medical
-	icon_state = "pda-m"
+	icon_state = "pda-med"
 
 /obj/item/device/pda/viro
 	default_cartridge = /obj/item/weapon/cartridge/medical
-	icon_state = "pda-v"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/engineering
 	default_cartridge = /obj/item/weapon/cartridge/engineering
-	icon_state = "pda-e"
+	icon_state = "pda-engie"
 
 /obj/item/device/pda/security
 	default_cartridge = /obj/item/weapon/cartridge/security
-	icon_state = "pda-s"
+	icon_state = "pda-sec"
 
 /obj/item/device/pda/detective
 	default_cartridge = /obj/item/weapon/cartridge/detective
-	icon_state = "pda-det"
+	icon_state = "pda-sec"
 
 /obj/item/device/pda/warden
 	default_cartridge = /obj/item/weapon/cartridge/security
-	icon_state = "pda-warden"
+	icon_state = "pda-sec"
 
 /obj/item/device/pda/janitor
 	default_cartridge = /obj/item/weapon/cartridge/janitor
-	icon_state = "pda-j"
+	icon_state = "pda-generic"
 	ttone = "slip"
 
 /obj/item/device/pda/science
 	default_cartridge = /obj/item/weapon/cartridge/signal/science
-	icon_state = "pda-tox"
+	icon_state = "pda-sci"
 	ttone = "boom"
 
 /obj/item/device/pda/clown
 	default_cartridge = /obj/item/weapon/cartridge/clown
-	icon_state = "pda-clown"
+	icon_state = "pda-generic"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
 /obj/item/device/pda/mime
 	default_cartridge = /obj/item/weapon/cartridge/mime
-	icon_state = "pda-mime"
+	icon_state = "pda-generic"
 	message_silent = 1
 	news_silent = 1
 	ttone = "silence"
@@ -118,38 +118,38 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/heads
 	default_cartridge = /obj/item/weapon/cartridge/head
-	icon_state = "pda-h"
+	icon_state = "pda-generic"
 	news_silent = 1
 
 /obj/item/device/pda/heads/hop
 	default_cartridge = /obj/item/weapon/cartridge/hop
-	icon_state = "pda-hop"
+	icon_state = "pda-generic"
 
 /obj/item/device/pda/heads/hos
 	default_cartridge = /obj/item/weapon/cartridge/hos
-	icon_state = "pda-hos"
+	icon_state = "pda-sec"
 
 /obj/item/device/pda/heads/ce
 	default_cartridge = /obj/item/weapon/cartridge/ce
-	icon_state = "pda-ce"
+	icon_state = "pda-engie"
 
 /obj/item/device/pda/heads/cmo
 	default_cartridge = /obj/item/weapon/cartridge/cmo
-	icon_state = "pda-cmo"
+	icon_state = "pda-med"
 
 /obj/item/device/pda/heads/rd
 	default_cartridge = /obj/item/weapon/cartridge/rd
-	icon_state = "pda-rd"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/captain
 	default_cartridge = /obj/item/weapon/cartridge/captain
-	icon_state = "pda-c"
+	icon_state = "pda-generic"
 	detonate = 0
 	//toff = 1
 
 /obj/item/device/pda/ert
 	default_cartridge = /obj/item/weapon/cartridge/captain
-	icon_state = "pda-h"
+	icon_state = "pda-generic"
 	detonate = 0
 //	hidden = 1
 
@@ -159,69 +159,69 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/quartermaster
 	default_cartridge = /obj/item/weapon/cartridge/quartermaster
-	icon_state = "pda-q"
+	icon_state = "pda-cargo"
 
 /obj/item/device/pda/shaftminer
-	icon_state = "pda-miner"
+	icon_state = "pda-cargo"
 	default_cartridge = /obj/item/weapon/cartridge/miner
 
 /obj/item/device/pda/syndicate
 	default_cartridge = /obj/item/weapon/cartridge/syndicate
-	icon_state = "pda-syn"
+	icon_state = "pda-generic"
 	name = "Military PDA"
 	owner = "John Doe"
 	hidden = 1
 
 /obj/item/device/pda/chaplain
 	default_cartridge = /obj/item/weapon/cartridge/service
-	icon_state = "pda-holy"
+	icon_state = "pda-generic"
 	ttone = "holy"
 
 /obj/item/device/pda/lawyer
 	default_cartridge = /obj/item/weapon/cartridge/lawyer
-	icon_state = "pda-lawyer"
+	icon_state = "pda-generic"
 	ttone = "..."
 
 /obj/item/device/pda/botanist
 	default_cartridge = /obj/item/weapon/cartridge/service
-	icon_state = "pda-hydro"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/roboticist
 	default_cartridge = /obj/item/weapon/cartridge/signal/science
-	icon_state = "pda-robot"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/librarian
 	default_cartridge = /obj/item/weapon/cartridge/service
-	icon_state = "pda-libb"
+	icon_state = "pda-generic"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a WGW-11 series e-reader."
 	note = "Congratulations, your station has chosen the Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant!"
 	message_silent = 1 //Quiet in the library!
 	news_silent = 0		// Librarian is above the law!  (That and alt job title is reporter)
 
 /obj/item/device/pda/clear
-	icon_state = "pda-transp"
+	icon_state = "pda-generic"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition with a transparent case."
 	note = "Congratulations, you have chosen the Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition!"
 
 /obj/item/device/pda/chef
 	default_cartridge = /obj/item/weapon/cartridge/service
-	icon_state = "pda-chef"
+	icon_state = "pda-generic"
 
 /obj/item/device/pda/bar
 	default_cartridge = /obj/item/weapon/cartridge/service
-	icon_state = "pda-bar"
+	icon_state = "pda-generic"
 
 /obj/item/device/pda/atmos
 	default_cartridge = /obj/item/weapon/cartridge/atmos
-	icon_state = "pda-atmo"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/chemist
 	default_cartridge = /obj/item/weapon/cartridge/chemistry
-	icon_state = "pda-chem"
+	icon_state = "pda-sci"
 
 /obj/item/device/pda/geneticist
 	default_cartridge = /obj/item/weapon/cartridge/medical
-	icon_state = "pda-gene"
+	icon_state = "pda-sci"
 
 
 // Special AI/pAI PDAs that cannot explode.
