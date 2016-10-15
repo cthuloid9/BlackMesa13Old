@@ -147,3 +147,8 @@
 /obj/item/clothing/head/helmet/engineering
 	icon_state = "engie-helmet"
 	armor = list(melee = 30, bullet = 5, laser = 20,energy = 10, bomb = 20, bio = 10, rad = 20)
+
+//Cargo Hardhat -- Actual hardhats are assumed to have a light on them so I've put this one here
+/obj/item/clothing/head/helmet/cargo
+	icon_state = "cargo-hardhat"
+	armor = list(melee = 30, bullet = 5, laser = 20,energy = 10, bomb = 20, bio = 10, rad = 20)
