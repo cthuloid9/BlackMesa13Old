@@ -9,12 +9,6 @@
 	siemens_coefficient = 0.9
 	action_button_name = "Toggle Head-light"
 
-//Engineering Helmet
-/obj/item/clothing/head/hardhat/engineering
-	icon_state = "engie-helmet"
-	brightness_on = 0
-	action_button_name = ""
-
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"
 

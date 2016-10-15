@@ -39,7 +39,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chief_engineer(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/heads/ce(H), slot_l_store)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/hardhat/engineering(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/engineering(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
 		return 1
@@ -78,7 +78,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/engineer(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/hardhat/engineering(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/engineering(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/device/t_scanner(H), slot_r_store)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/engineering(H), slot_l_store)
 		return 1
@@ -118,7 +118,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/workboots(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/atmos(H), slot_l_store)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/atmostech/(H), slot_belt)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/hardhat/engineering(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/engineering(H), slot_head)
 		return 1
 
 	equip_survival(var/mob/living/carbon/human/H)
