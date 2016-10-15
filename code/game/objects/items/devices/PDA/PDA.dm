@@ -249,7 +249,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/atmos
 	default_cartridge = /obj/item/weapon/cartridge/atmos
-	icon_state = "pda-sci"
+	icon_state = "pda-engie"
 	fallback_icon = "pda-atmo"
 
 /obj/item/device/pda/chemist
