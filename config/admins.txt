@@ -12,4 +12,8 @@ rsmr - Game Master
 ErinCrowe Game Master
 Zth - Game Master
 Kirmaster - Game Master
+<<<<<<< HEAD
+=======
+Ms.Flatgub - Game Master
+>>>>>>> upstream/master
 Wraithcraft - Game Master

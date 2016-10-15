@@ -180,8 +180,9 @@ var/global/list/string_slot_flags = list(
 		S.race_key = rkey //Used in mob icon caching.
 		all_species[S.name] = S
 
-		if(!(S.spawn_flags & SPECIES_IS_RESTRICTED))
-			playable_species += S.name
+		///////// DON'T ADD ANY FURTHER PLAYABLE SPECIES
+		//if(!(S.spawn_flags & SPECIES_IS_RESTRICTED))
+		//	playable_species += S.name
 		if(S.spawn_flags & SPECIES_IS_WHITELISTED)
 			whitelisted_species += S.name
 
