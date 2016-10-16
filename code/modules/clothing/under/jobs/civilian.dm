@@ -13,9 +13,9 @@
 	rolled_sleeves = 0
 
 /obj/item/clothing/under/rank/cargo
-	name = "quartermaster's jumpsuit"
-	desc = "It's a jumpsuit worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."
-	icon_state = "qm"
+	name = "cargo technician's jumpsuit"
+	desc = "It's a jumpsuit worn by the cargo staff. It's specially designed to prevent back injuries caused by pushing paper."
+	icon_state = "cargo"
 	item_state_slots = list(slot_r_hand_str = "cargo", slot_l_hand_str = "cargo")
 	rolled_sleeves = 0
 
