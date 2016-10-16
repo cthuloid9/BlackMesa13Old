@@ -56,7 +56,8 @@ var/datum/category_collection/underwear/global_underwear = new()
 
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel", "Satchel Alt", "Messenger Bag")
-var/global/list/pdachoicelist = list("Default", "Slim", "Old")
+//var/global/list/pdachoicelist = list("Default", "Slim", "Old")
+var/global/list/pdachoicelist = list("Black Mesa Style") //Append default to this list to re-enable classic PDA sprites
 var/global/list/exclude_jobs = list(/datum/job/ai,/datum/job/cyborg)
 
 // Visual nets

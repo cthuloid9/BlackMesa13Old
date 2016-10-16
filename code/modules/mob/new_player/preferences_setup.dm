@@ -30,7 +30,7 @@
 
 
 	backbag = rand(1,5)
-	pdachoice = rand(1,3)
+	pdachoice = 1
 	age = rand(current_species.min_age, current_species.max_age)
 	b_type = RANDOM_BLOOD_TYPE
 	if(H)
