@@ -186,8 +186,8 @@
 		icon_state = "gyropistol"
 
 /obj/item/weapon/gun/projectile/pistol
-	name = "holdout pistol"
-	desc = "The Lumoco Arms P3 Whisper. A small, easily concealable gun. Uses 9mm rounds."
+	name = "glock 17"
+	desc = "The standard issue weapon used by the Black Mesa security guards."
 	icon_state = "pistol"
 	item_state = null
 	w_class = ITEMSIZE_SMALL

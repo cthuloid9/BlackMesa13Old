@@ -213,7 +213,7 @@
 		new /obj/item/clothing/head/soft/sec/corp(src)
 		new /obj/item/clothing/under/rank/security/corp(src)
 		new /obj/item/ammo_magazine/c45m/rubber(src)
-		new /obj/item/weapon/gun/energy/taser(src)
+		new /obj/item/weapon/gun/projectile/pistol(src)
 		new /obj/item/weapon/cell/device/weapon(src)
 		new /obj/item/clothing/suit/storage/hooded/wintercoat/security(src)
 		new /obj/item/device/flashlight/maglight(src)
