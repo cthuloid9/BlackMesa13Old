@@ -514,7 +514,8 @@ var/global/datum/controller/occupations/job_master
 				C.associated_account_number = H.mind.initial_account.account_number
 
 			H.equip_to_slot_or_del(C, slot_wear_id)
-
+		if(job.title == "Hobo")
+			return 1
 		H.equip_to_slot_or_del(new /obj/item/device/pda(H), slot_belt)
 		if(locate(/obj/item/device/pda,H))
 			var/obj/item/device/pda/pda = locate(/obj/item/device/pda,H)

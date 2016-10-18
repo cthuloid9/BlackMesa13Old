@@ -46,7 +46,7 @@ for reference:
 	access_cmo = 40
 	access_qm = 41
 	access_court = 42
-	access_clown = 43
+	access_hobo = 43
 	access_mime = 44
 */
 
@@ -214,7 +214,7 @@ for reference:
 			if(health <= 0)
 				explode()
 			return
-			
+
 /obj/machinery/deployable/barrier/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		return

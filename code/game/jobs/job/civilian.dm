@@ -283,3 +283,29 @@
 
 
 		return 1
+
+
+/datum/job/hobo
+	title = "Hobo"
+	flag = HOBO
+	department = "Civilian"
+	department_flag = CIVILIAN
+	faction = "Station"
+	total_positions = 2
+	spawn_positions = 2
+	supervisors = "Jesus"
+	selection_color = "#515151"
+	idtype = /obj/item/weapon/card/id/civilian
+	access = list(access_maint_tunnels)
+	minimal_access = list(access_maint_tunnels)
+	alt_titles = list("Tramp", "Bum", "Vagrant", "Ravoli")
+
+
+	equip(var/mob/living/carbon/human/H)
+		if(!H)	return 0
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/det(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+		H.equip_to_slot_or_del(new /obj/item/device/pda/lawyer(H), slot_belt)
+		H.equip_to_slot_or_del(new /obj/item/weapon/flame/lighter/zippo(H), slot_l_store)
+		return 1

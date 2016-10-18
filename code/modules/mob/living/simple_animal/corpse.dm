@@ -116,21 +116,6 @@
 	corpseidaccess = "Syndicate"
 
 
-
-/obj/effect/landmark/mobcorpse/clown
-	name = "Clown"
-	corpseuniform = /obj/item/clothing/under/rank/clown
-	corpseshoes = /obj/item/clothing/shoes/clown_shoes
-	corpseradio = /obj/item/device/radio/headset
-	corpsemask = /obj/item/clothing/mask/gas/clown_hat
-	corpsepocket1 = /obj/item/weapon/bikehorn
-	corpseback = /obj/item/weapon/storage/backpack/clown
-	corpseid = 1
-	corpseidjob = "Clown"
-	corpseidaccess = "Clown"
-
-
-
 /obj/effect/landmark/mobcorpse/pirate
 	name = "Pirate"
 	corpseuniform = /obj/item/clothing/under/pirate

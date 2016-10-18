@@ -44,10 +44,6 @@
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
 
-/obj/item/weapon/stamp/clown
-	name = "clown's rubber stamp"
-	icon_state = "stamp-clown"
-
 /obj/item/weapon/stamp/internalaffairs
 	name = "internal affairs rubber stamp"
 	icon_state = "stamp-intaff"

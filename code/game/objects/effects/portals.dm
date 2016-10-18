@@ -1,6 +1,6 @@
 /obj/effect/portal
 	name = "portal"
-	desc = "Looks unstable. Best to test it with the clown."
+	desc = "Looks unstable. Best to test it with the hobo."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 	density = 1
@@ -50,4 +50,3 @@
 			do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0)
 		else
 			do_teleport(M, target, 1) ///You will appear adjacent to the beacon
-
