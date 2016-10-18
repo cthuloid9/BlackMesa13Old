@@ -329,6 +329,12 @@
 		'icons/spideros_icons/sos_13.png',
 		'icons/spideros_icons/sos_14.png'
 		)
+	//Load all vox phrases
+	getFilesList(vox_soundclips)
+
+
+
+
 
 
 mob/proc/MayRespawn()
