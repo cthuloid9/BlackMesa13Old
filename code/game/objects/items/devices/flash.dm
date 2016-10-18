@@ -14,7 +14,7 @@
 	var/broken = 0     //Is the flash burnt out?
 	var/last_used = 0 //last world.time it was used.
 
-/obj/item/device/flash/proc/clown_check(var/mob/user)
+/obj/item/device/flash/proc/clown_check(var/mob/user) //TODO: Delete this shit
 	if(user && (CLUMSY in user.mutations) && prob(50))
 		user << "<span class='warning'>\The [src] slips out of your hand.</span>"
 		user.drop_item()
