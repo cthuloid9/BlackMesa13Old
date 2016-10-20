@@ -1,4 +1,4 @@
-//VOX ANNOUNCEMENT SYSTEM
+//VOX ANNOUNCEMENT SYSTEM -- FOR THE AI
 //PORTED FROM /TG/ BY FLATGUB OVER THE COURSE OF TWO PAINFUL DAYS.
 
 var/announcing_vox = 0 // Stores the time of the last announcement
@@ -53,7 +53,7 @@ var/const/VOX_DELAY = 10
 	//Time to wait between confirming the announcement and it actually happening
 	//more unique words = higher typing time
 	//Both adds a form of "typing delay" and gives vox the time required to cache all audio clips before they're needed
-	//var/typingtime = 0 -- Unneeded
+	var/typingtime = 10
 
 	if(!message || announcing_vox > world.time)
 		return
@@ -93,7 +93,6 @@ var/const/VOX_DELAY = 10
 		src << browse_rsc(vox_words[word])
 
 	src << "You enter the announcement"
-	typingtime = 10
 
 	spawn(typingtime)
 		for(var/word in words)
