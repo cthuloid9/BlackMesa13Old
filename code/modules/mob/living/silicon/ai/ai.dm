@@ -434,6 +434,9 @@ var/list/ai_verbs_hidden = list( // For why this exists, refer to https://xkcd.c
 		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
 	if (href_list["showalerts"])
 		subsystem_alarm_monitor()
+	if(href_list["say_word"])
+		play_vox_word(href_list["say_word"], null, src)
+		return
 	//Carn: holopad requests
 	if (href_list["jumptoholopad"])
 		var/obj/machinery/hologram/holopad/H = locate(href_list["jumptoholopad"])
