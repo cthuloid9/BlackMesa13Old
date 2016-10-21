@@ -191,6 +191,93 @@ var/static/list/scarySounds = list(
 	'sound/effects/clownstep2.ogg'
 )
 
+// Impact sounds for random selection
+var/static/list/metal_impact_sounds = list(
+	'sound/impact/metal1.wav',
+	'sound/impact/metal2.wav',
+	'sound/impact/metal3.wav',
+	'sound/impact/metal4.wav',
+	'sound/impact/metal5.wav',
+	'sound/impact/metal6.wav'
+)
+
+var/static/list/wood_impact_sounds = list(
+	'sound/impact/wood1.wav',
+	'sound/impact/wood2.wav',
+	'sound/impact/wood3.wav',
+	'sound/impact/wood4.wav'
+)
+
+var/static/list/glass_impact_sounds = list(
+	'sound/impact/glass1.wav',
+	'sound/impact/glass2.wav',
+	'sound/impact/glass3.wav',
+	'sound/impact/glass4.wav'
+)
+
+var/static/list/flesh_impact_sounds = list(
+	'sound/impact/felsh1.wav',
+	'sound/impact/flesh2.wav',
+	'sound/impact/flesh3.wav',
+	'sound/impact/flesh4.wav',
+	'sound/impact/flesh5.wav',
+	'sound/impact/flesh6.wav',
+	'sound/impact/flesh7.wav'
+)
+
+var/static/list/concrete_impact_sounds = list(
+	'sound/impact/concrete1.wav',
+	'sound/impact/concrete2.wav',
+	'sound/impact/concrete3.wav'
+)
+
+// Destruction sounds for random selection
+var/static/list/metal_break_sounds = list(
+	'sound/impact/bustmetal1.wav',
+	'sound/impact/bustmetal2.wav'
+)
+
+var/static/list/wood_break_sounds = list(
+	'sound/impact/bustcrate1.wav',
+	'sound/impact/bustcrate2.wav',
+	'sound/impact/bustcrate3.wav'
+)
+
+var/static/list/glass_break_sounds = list(
+	'sound/impact/bustglass1.wav',
+	'sound/impact/bustglass2.wav',
+	'sound/impact/bustglass3.wav'
+)
+
+var/static/list/flesh_break_sounds = list(
+	'sound/impact/bustfelsh1.wav',
+	'sound/impact/bustflesh2.wav'
+)
+
+var/static/list/concrete_break_sounds = list(
+	'sound/impact/bustconcrete1.wav',
+	'sound/impact/bustconcrete2.wav'
+)
+
+// Zap sounds, for random selection
+var/static/list/zap_sounds = list(
+	'sound/impact/zap1.wav',
+	'sound/impact/zap2.wav',
+	'sound/impact/zap3.wav',
+	'sound/impact/zap4.wav',
+	'sound/impact/zap5.wav',
+	'sound/impact/zap6.wav',
+	'sound/impact/zap7.wav',
+	'sound/impact/zap8.wav'
+)
+
+// Push/pull sounds, for random selection
+var/static/list/pull_sounds = list (
+	'sound/impact/pushbox1.wav',
+	'sound/impact/pushbox2.wav',
+	'sound/impact/pushbox3.wav'
+)
+
 // Bomb cap!
 var/max_explosion_range = 14
 
