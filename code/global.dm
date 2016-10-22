@@ -216,10 +216,9 @@ var/static/list/glass_impact_sounds = list(
 )
 
 var/static/list/flesh_impact_sounds = list(
-	'sound/impact/felsh1.wav',
+	'sound/impact/flesh1.wav',
 	'sound/impact/flesh2.wav',
 	'sound/impact/flesh3.wav',
-	'sound/impact/flesh4.wav',
 	'sound/impact/flesh5.wav',
 	'sound/impact/flesh6.wav',
 	'sound/impact/flesh7.wav'
@@ -250,7 +249,7 @@ var/static/list/glass_break_sounds = list(
 )
 
 var/static/list/flesh_break_sounds = list(
-	'sound/impact/bustfelsh1.wav',
+	'sound/impact/bustflesh1.wav',
 	'sound/impact/bustflesh2.wav'
 )
 
