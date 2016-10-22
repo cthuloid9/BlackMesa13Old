@@ -1,22 +1,28 @@
-/obj/structure/table/safetyrail
+/obj/structure/safetyrail
 	name = "safety rail"
 	desc = "To keep you safe, of course."
-	icon = 'icons/obj/structures.dmi'
-	icon_state = "safety_rail"
+	icon = 'icons/obj/safetyrail.dmi'
+	icon_state = "standard"
 	can_plate = 0
 	can_reinforce = 0
 	flipped = -1
 
-/obj/structure/table/safetyrail/New()
+/obj/structure/safetyrail/straight
+	icon_state = "standard"
+
+/obj/structure/safetyrail/corner
+	icon_state = "corner"
+
+/obj/structure/safetyrail/New()
 	..()
 	verbs -= /obj/structure/table/verb/do_flip
 	verbs -= /obj/structure/table/proc/do_put
 
-/obj/structure/table/safetyrail/update_connections()
+/obj/structure/safetyrail/update_connections()
 	return
 
-/obj/structure/table/safetyrail/update_desc()
+/obj/structure/safetyrail/update_desc()
 	return
 
-/obj/structure/table/safetyrail/update_icon()
+/obj/structure/safetyrail/update_icon()
 	return
