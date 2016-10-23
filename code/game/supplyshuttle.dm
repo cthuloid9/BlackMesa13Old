@@ -39,6 +39,7 @@ var/list/mechtoys = list(
 	requires_power = 0
 	base_turf = /turf/space
 
+// Why on earth are these here? They're a structure, they should be in code/game/objects/structures  >o>
 /obj/structure/plasticflaps //HOW DO YOU CALL THOSE THINGS ANYWAY
 	name = "\improper plastic flaps"
 	desc = "Completely impassable - or are they?"
