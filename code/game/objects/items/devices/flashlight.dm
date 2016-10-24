@@ -207,6 +207,14 @@
 	matter = list(DEFAULT_WALL_MATERIAL = 200,"glass" = 50)
 	hitsound = "swing_hit"
 
+/obj/item/device/flashlight/militarylight
+	name = "military light"
+	desc = "An L-shaped military flashlight with a belt clip."
+	icon_state = "militarylight"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	w_class = ITEMSIZE_SMALL
+
 /obj/item/device/flashlight/drone
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
