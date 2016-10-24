@@ -28,6 +28,12 @@
 	icon_state = "redsoft"
 	item_state_slots = list(slot_r_hand_str = "redsoft", slot_l_hand_str = "redsoft")
 
+/obj/item/clothing/head/soft/janitor
+	name = "janitor's cap"
+	desc = "It's a baseball hat in a tasteless red color. Its faded with time."
+	icon_state = "janitorsoft"
+	item_state_slots = list(slot_r_hand_str = "redsoft", slot_l_hand_str = "redsoft")
+
 /obj/item/clothing/head/soft/blue
 	name = "blue cap"
 	desc = "It's a peaked cap in a tasteless blue color."
