@@ -2136,5 +2136,5 @@
 #include "code\ZAS\Zone.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\polaris-1.dmm"
+#include "maps\BM13_area_testmap.dmm"
 // END_INCLUDE
