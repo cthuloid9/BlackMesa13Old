@@ -1,5 +1,7 @@
+#define REACTOR_OUTPUT_MULTIPLIER 3
 #define REACTOR_COOLING_FACTOR 0.5
 #define REACTOR_ENVIRONMENT_COOLING_FACTOR 0.1
+#define REACTOR_TEMPERATURE_CUTOFF 10000
 
 /obj/item/weapon/fuelrod
 	name = "Fuel Rod"
@@ -16,9 +18,26 @@
 	var/melting_point = 3000 // Entering the danger zone.
 	var/decay_heat = 0 // GJ/mol (Yes, using GigaJoules per Mole. Storing a whole TeraJoule in Joules would probably give Byond an aneurysm.)
 
+/obj/item/weapon/fuelrod/process()
+	if (!istype(loc, /obj/machinery/power/fission))
+		var/turf/T = get_turf(src)
+		var/datum/gas_mixture/env = T.return_air()
+		var/datum/gas_mixture/removed = env.remove(0.25 * env.total_moles)
+		removed.add_thermal_energy(decay_heat * REACTOR_ENVIRONMENT_COOLING_FACTOR)
+		removed.temperature = between(0, removed.temperature, REACTOR_TEMPERATURE_CUTOFF)
+		heat += (removed.temperature - heat) * REACTOR_ENVIRONMENT_COOLING_FACTOR
+		env.merge(removed)
+		if (integrity == 0 && decay_heat > 0)
+			var/power = (decay_heat / 1000)
+			for(var/mob/living/l in range(src, round(sqrt(power / 2))))
+				var/radius = max(get_dist(l, src), 1)
+				var/rads = (power / 10) * ( 1 / (radius**2) )
+				l.apply_effect(rads, IRRADIATE)
+
 /obj/item/weapon/fuelrod/uranium
-	name = "Uranium Fuel Rod"
+	name = "uranium fuel rod"
 	desc = "A nuclear fuel rod."
+	color = "#75716E"
 	specific_heat = 28	// J/(mol*K)
 	molar_mass = 0.235	// kg/mol
 	mass = 20 // kg
@@ -26,17 +45,20 @@
 	decay_heat = 19540 // GJ/mol
 
 /obj/item/weapon/fuelrod/beryllium
-	name = "Beryllium Reflector"
+	name = "beryllium reflector"
 	desc = "A neutron reflector."
+	color = "#878B96"
 	specific_heat = 16	// J/(mol*K)
 	molar_mass = 0.009	// kg/mol
-	mass = 20 // kg
+	mass = 10 // kg
 	melting_point = 1560
+	lifespan = 7400
 
 /* No control rods just yet.
 /obj/item/weapon/fuelrod/silver
-	name = "Silver Control Rod"
+	name = "silver control rod"
 	desc = "A nuclear control rod."
+	color = "#D1C9B6"
 	specific_heat = 25	// J/(mol*K)
 	molar_mass = 0.108	// kg/mol
 	mass = 20 // kg
@@ -48,12 +70,13 @@
 /obj/machinery/power/fission
 	icon = 'icons/obj/machines/fission.dmi'
 	density = 1
-	anchored = 1.0
+	anchored = 0
 	name = "Nuclear Fission Core"
 	icon_state = "engine"
 	var/gasefficency = 0.25
 	var/health = 3000
 	var/max_health = 3000
+	var/max_temp = 2000
 	var/list/obj/item/weapon/fuelrod/rods
 	var/list/obj/machinery/atmospherics/pipe/pipes
 
@@ -92,7 +115,7 @@
 			decay_heat += rod.decay_heat * (min(rod.life, 100) / 100)
 			rod.life = max(0, rod.life - (1 / rod.lifespan))
 			activerods++
-	decay_heat = decay_heat * activerods
+	var/output_heat = decay_heat * activerods
 	heat = heat / rods.len
 
 	for(var/i=1,i<=pipes.len,i++)
@@ -100,28 +123,41 @@
 		if (istype(pipe, /obj/machinery/atmospherics/pipe))
 			var/datum/gas_mixture/env = pipe.return_air()
 			var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles)
-			removed.add_thermal_energy(decay_heat / pipes.len)
-			removed.temperature = between(0, removed.temperature, 10000)
+			removed.add_thermal_energy((output_heat * REACTOR_OUTPUT_MULTIPLIER) / pipes.len)
+			removed.temperature = between(0, removed.temperature, REACTOR_TEMPERATURE_CUTOFF)
 			heat += (removed.temperature - heat) * REACTOR_COOLING_FACTOR
 			env.merge(removed)
 
 	var/datum/gas_mixture/env = loc.return_air()
 	var/datum/gas_mixture/removed = env.remove(gasefficency * env.total_moles)
 	removed.add_thermal_energy((decay_heat / pipes.len) * REACTOR_ENVIRONMENT_COOLING_FACTOR)
-	removed.temperature = between(0, removed.temperature, 10000)
+	removed.temperature = between(0, removed.temperature, REACTOR_TEMPERATURE_CUTOFF)
 	heat += (removed.temperature - heat) * REACTOR_ENVIRONMENT_COOLING_FACTOR
 	env.merge(removed)
 
 	for(var/i=1,i<=rods.len,i++)
 		var/obj/item/weapon/fuelrod/rod = rods[i]
+		var/integrity_lost = rod.integrity
 		rod.heat = round((rod.heat + heat) / 2)// Equalize fuel heat.
 		if (rod.heat > rod.melting_point)
-			rod.integrity = 0
+			rod.integrity = max(0, rod.integrity - 1)
 		else if (rod.heat > (rod.melting_point * 0.9))
 			rod.integrity = max(0, rod.integrity - (1 / rod.lifespan))
-		//if (rod.integrity == 0) // Meltdown time.
+		if (rod.integrity == 0 && integrity_lost > 0) // Meltdown time.
+			if (rod.decay_heat > 0)
+				rod.life = rod.life * 10
+				rod.decay_heat = rod.decay_heat * 10
+			else
+				rod.life = 0
+			rod.name = "melted [rod.name]"
+			rod.icon_state = "rod_melt"
 
-	var/power = decay_heat / 1000
+	if (heat > max_temp) // Overheating, reduce structural integrity, emit more rads.
+		health -= health * ((heat - max_temp) / (max_temp * 2))
+
+	var/healthmul = ((((health / max_health) - 1) / -1) * 10) + 1
+
+	var/power = (decay_heat / 1000) * healthmul
 	for(var/mob/living/l in range(src, round(sqrt(power / 2))))
 		var/radius = max(get_dist(l, src), 1)
 		var/rads = (power / 10) * ( 1 / (radius**2) )
@@ -152,6 +188,9 @@
 		return
 
 	if (istype(W, /obj/item/weapon/wirecutters)) // Wirecutters? Sort of like prongs, for removing a rod. Good luck getting a 20kg fuel rod out with wirecutters though.
+		if (rods.len == 0)
+			user << "<span class='notice'>There's nothing left to remove.</span>"
+			return ..()
 		for(var/i=1,i<=rods.len,i++)
 			var/obj/item/weapon/fuelrod/rod = rods[i]
 			if (rod.life == 0)
@@ -213,16 +252,25 @@
 		data["ambient_pressure"] = round(env.return_pressure())
 
 	var/core_temp = 0
-	var/max_temp = 3000
 	for(var/i=1,i<=rods.len,i++)
 		var/obj/item/weapon/fuelrod/rod = rods[rods.len]
 		core_temp += rod.heat
-		max_temp = min(max_temp, rod.melting_point)
 	if (rods.len > 0)
 		data["core_temp"] = core_temp / rods.len // Average core heat this tick.
 	else
 		data["core_temp"] = data["ambient_temp"]
 	data["max_temp"] = max_temp
+
+	data["rods"] = new /list(rods.len)
+	for(var/i=1,i<=rods.len,i++)
+		var/obj/item/weapon/fuelrod/rod = rods[i]
+		var/roddata[0]
+		roddata["name"] = rod.name
+		roddata["integrity_percentage"] = between(0, rod.integrity, 100)
+		roddata["life_percentage"] = between(0, rod.life, 100)
+		roddata["heat"] = rod.heat
+		roddata["melting_point"] = rod.melting_point
+		data["rods"][i] = roddata
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if (!ui)
