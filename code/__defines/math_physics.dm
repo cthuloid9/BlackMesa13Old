@@ -25,7 +25,7 @@
 
 #define INFINITY	1.#INF
 
-#define TICKS_IN_DAY 		24*60*60*10
+#define TICKS_IN_DAY 		864000 // Sum of 24*60*60*10. Using operations in definitions could cause BIDMAS errors.
 #define TICKS_IN_SECOND 	10
 
 #define SIMPLE_SIGN(X) ((X) < 0 ? -1 : 1)

@@ -37,7 +37,7 @@
 
 /decl/xgm_gas/volatile_fuel
 	id = "volatile_fuel"
-	name = "Volatile Fuel"
+	name = "Octane"
 	specific_heat = 253	// J/(mol*K)	C8H18 gasoline. Isobaric, but good enough.
 	molar_mass = 0.114	// kg/mol. 		same.
 
