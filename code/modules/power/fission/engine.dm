@@ -1,14 +1,17 @@
 #define REACTOR_OUTPUT_MULTIPLIER 3
 #define REACTOR_COOLING_FACTOR 0.5
 #define REACTOR_TEMPERATURE_CUTOFF 10000
+#define REACTOR_MJ_TO_RADS 10000
 
 /obj/machinery/power/fission
 	icon = 'icons/obj/machines/fission.dmi'
 	density = 1
 	anchored = 0
-	name = "Nuclear Fission Core"
+	name = "nuclear fission core"
 	icon_state = "engine"
-	var/gasefficiency = 0.25
+	var/announce = 1
+	var/exploded = 0
+	var/gasefficiency = 0.5
 	var/envefficiency = 0.01
 	var/health = 3000
 	var/max_health = 3000
@@ -64,12 +67,15 @@
 		var/obj/item/weapon/fuelrod/rod = rods[i]
 		rod.equalize(src, gasefficiency)
 
-	if(temperature > max_temp) // Overheating, reduce structural integrity, emit more rads.
+	if(temperature > max_temp && health > 0) // Overheating, reduce structural integrity, emit more rads.
 		health -= health * ((temperature - max_temp) / (max_temp * 2))
+		health = between(0, health, max_health)
+		if (health < 1)
+			go_nuclear()
 
-	var/healthmul = ((((health / max_health) - 1) / -1) * 10) + 1
+	var/healthmul = (((health / max_health) - 1) / -1)
 
-	var/power = (decay_heat / 1000) * healthmul
+	var/power = (decay_heat / REACTOR_MJ_TO_RADS) * max(healthmul, 0.1)
 	for(var/mob/living/l in range(src, round(sqrt(power / 2))))
 		var/radius = max(get_dist(l, src), 1)
 		var/rads = (power / 10) * ( 1 / (radius**2) )
@@ -91,6 +97,12 @@
 				pipes += pipe
 			return
 		return ..()
+
+	if(istype(W, /obj/item/device/multitool))
+		user << "<span class='notice'>You connect \the [src] to \the [W].</span>"
+		var/obj/item/device/multitool/M = W
+		M.connectable = src
+		return
 
 	if(istype(W, /obj/item/weapon/fuelrod))
 		user << "<span class='notice'>You carefully start loading \the [W] into to \the [src].</span>"
@@ -217,7 +229,7 @@
 
 	data["integrity_percentage"] = round(get_integrity())
 	var/datum/gas_mixture/env = null
-	if(!istype(src.loc, /turf/space))
+	if(!isnull(src.loc) && !istype(src.loc, /turf/space))
 		env = src.loc.return_air()
 
 	if(!env)
@@ -227,18 +239,17 @@
 		data["ambient_temp"] = round(env.temperature)
 		data["ambient_pressure"] = round(env.return_pressure())
 
-	data["core_temp"] = temperature
-
-	data["max_temp"] = max_temp
+	data["core_temp"] = round(temperature)
+	data["max_temp"] = round(max_temp)
 
 	data["rods"] = new /list(rods.len)
 	for(var/i=1,i<=rods.len,i++)
 		var/obj/item/weapon/fuelrod/rod = rods[i]
 		var/roddata[0]
 		roddata["name"] = rod.name
-		roddata["integrity_percentage"] = between(0, rod.integrity, 100)
-		roddata["life_percentage"] = between(0, rod.life, 100)
-		roddata["heat"] = rod.temperature
+		roddata["integrity_percentage"] = round(between(0, rod.integrity, 100))
+		roddata["life_percentage"] = round(between(0, rod.life, 100))
+		roddata["heat"] = round(rod.temperature)
 		roddata["melting_point"] = rod.melting_point
 		data["rods"][i] = roddata
 
@@ -248,3 +259,74 @@
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
+
+/obj/machinery/power/fission/proc/go_nuclear()
+	if (health < 1 && !exploded)
+		var/turf/L = get_turf(src)
+		if(!istype(L))
+			return
+		message_admins("[name] exploding in 15 seconds at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("[name] exploded at ([x],[y],[z])")
+		exploded = 1
+		var/decaying_rods = 0
+		var/decay_heat = 0
+		for(var/i=1,i<=rods.len,i++)
+			var/obj/item/weapon/fuelrod/rod = rods[i]
+			if(rod.life > 0 && rod.decay_heat > 0)
+				decay_heat += rod.tick_life()
+				decaying_rods++
+			rod.meltdown()
+		var/rad_power = decay_heat / REACTOR_MJ_TO_RADS
+		if(announce)
+			world << sound('sound/effects/carter_alarm_cut.ogg')
+			spawn(1 SECONDS)
+				world << "<font size='15' color='red'><b>DUCK AND COVER</b></font>"
+
+		// Give the alarm time to play. Then... FLASH! AH-AH!
+		spawn(15 SECONDS)
+			for(var/mob/living/mob in living_mob_list)
+				var/turf/T = get_turf(mob)
+				if(T && (loc.z == T.z))
+					var/root_distance = sqrt( 1 / (get_dist(mob, src) + 1) )
+					var/rads = rad_power * root_distance
+					var/eye_safety = 0
+					if(iscarbon(mob))
+						var/mob/living/carbon/M = mob
+						eye_safety = M.eyecheck()
+					if (eye_safety < 3) // You've got a welding helmet over sunglasses? Congratulations, you're not blind.
+						mob.flash_eyes()
+						mob.Stun(2)
+						mob.Weaken(10)
+					if(istype(mob, /mob/living/carbon/human))
+						var/mob/living/carbon/human/H = mob
+						if (eye_safety < 2)
+							var/obj/item/organ/internal/eyes/E = H.internal_organs_by_name[O_EYES]
+							if(istype(E))
+								E.damage += root_distance * 100
+								if (E.damage >= E.min_broken_damage)
+									H << "<span class='danger'>You are blinded by the flash!</span>"
+									H.sdisabilities |= BLIND
+								else if (E.damage >= E.min_bruised_damage)
+									H << "<span class='danger'>You are blinded by the flash!</span>"
+									H.eye_blind = 5
+									H.eye_blurry = 5
+									H.disabilities |= NEARSIGHTED
+									spawn(60 SECONDS)
+										H.disabilities &= ~NEARSIGHTED
+								else if(E.damage > 10)
+									H << "<span class='warning'>Your eyes burn.</span>"
+						if (!isSynthetic())
+							H.apply_damage(max((rads / 10) * H.species.radiation_mod, 0), BURN)
+					mob.apply_effect(rads, IRRADIATE)
+					mob.radiation += max(rads / 10, 0) // Not even a radsuit can save you now.
+
+		// Some engines just want to see the world burn.
+		spawn(17 SECONDS)
+			for(var/i=1,i<=rods.len,i++)
+				var/obj/item/weapon/fuelrod/rod = rods[i]
+				rod.loc = L
+				rods = new()
+				pipes = new()
+			empulse(src, decaying_rods * 10, decaying_rods * 100)
+			var/explosion_power = 4 * decaying_rods
+			explosion(L, explosion_power, explosion_power * 2, explosion_power * 3, explosion_power * 4, 1)

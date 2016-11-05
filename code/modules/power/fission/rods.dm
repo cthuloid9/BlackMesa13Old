@@ -71,13 +71,7 @@
 	else if(temperature > (melting_point * 0.9))
 		integrity = max(0, integrity - (1 / lifespan))
 	if(integrity == 0 && integrity_lost > 0) // Meltdown time.
-		if (decay_heat > 0)
-			life = life * 10
-			decay_heat = decay_heat * 10
-		else
-			life = 0
-		name = "melted [name]"
-		icon_state = "rod_melt"
+		meltdown()
 
 /obj/item/weapon/fuelrod/proc/add_thermal_energy(var/thermal_energy)
 	if(mass < 1)
@@ -105,6 +99,17 @@
 		else if (decay_heat > 0)
 			return ((decay_heat * (mass / molar_mass)) / lifespan) * (min(life, 100) / 100)
 	return 0
+
+/obj/item/weapon/fuelrod/proc/meltdown()
+	if (icon_state != "rod_melt")
+		if (decay_heat > 0)
+			life = life * 10
+			decay_heat = decay_heat * 10
+		else
+			life = 0
+		name = "melted [name]"
+		icon_state = "rod_melt"
+		integrity = 0
 
 /obj/item/weapon/fuelrod/uranium
 	name = "uranium fuel rod"
