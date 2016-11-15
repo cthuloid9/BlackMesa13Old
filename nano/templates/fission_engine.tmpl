@@ -10,8 +10,14 @@
 	Temperature:
 </span>
 <span class="itemContent">
-	{{:helper.displayBar(data.core_temp, 0, data.max_temp, (data.ambient_temp >= (data.max_temp / 2)) ? 'bad' : (data.ambient_temp >= (data.max_temp / 2.5)) ? 'average' : 'good')}}
+	{{:helper.displayBar(data.core_temp, 0, data.max_temp, (data.core_temp >= (data.max_temp / 2)) ? 'bad' : (data.core_temp >= (data.max_temp / 2.5)) ? 'average' : 'good')}}
 	<b>{{:data.core_temp}} K</b>
+</span>
+<span class="itemLabel">
+	Alert Temperature:
+</span>
+<span class="itemContent">
+	<b>{{:data.warn_point}} %</b><br>{{:helper.link('SET', null, {'warn_point' : 0}, null)}}
 </span>
 <h3>Environment</h3>
 <span class="itemLabel">
@@ -49,5 +55,11 @@
 	<span class="itemContent">
 		{{:helper.displayBar(value.heat, 0, value.melting_point, (value.heat >= (value.melting_point / 1.33)) ? 'bad' : (value.heat >= (value.melting_point / 2)) ? 'average' : 'good')}}
 		<b>{{:value.heat}} K</b>
+	</span>
+	<span class="itemLabel">
+		Insertion:
+	</span>
+	<span class="itemContent">
+		<b>{{:value.insertion}} %</b><br>{{:helper.link('SET', null, {'rod_insertion' : value.rod}, null)}} {{:helper.link('EJECT', null, {'rod_eject' : value.rod}, null)}}
 	</span>
 {{/for}}

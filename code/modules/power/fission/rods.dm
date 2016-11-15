@@ -32,7 +32,7 @@
 		equalize(T.return_air(), gasefficiency)
 
 		if(integrity == 0 && decay_heat > 0)
-			var/power = (tick_life() / 1000) // Gotta nerf power hard, or everyone dies.
+			var/power = (tick_life() / REACTOR_RADS_TO_MJ)
 			add_thermal_energy(power)
 			for(var/mob/living/l in range(src, round(sqrt(power / 2))))
 				var/radius = max(get_dist(l, src), 1)
@@ -66,8 +66,8 @@
 		env.merge(sharer)
 
 	var/integrity_lost = integrity
-	if(temperature > melting_point)
-		integrity = max(0, integrity - 1)
+	if(temperature > melting_point && melting_point > 0)
+		integrity = max(0, integrity - (temperature / melting_point))
 	else if(temperature > (melting_point * 0.9))
 		integrity = max(0, integrity - (1 / lifespan))
 	if(integrity == 0 && integrity_lost > 0) // Meltdown time.
@@ -89,19 +89,30 @@
 /obj/item/weapon/fuelrod/proc/heat_capacity()
 	. = specific_heat * (mass / molar_mass)
 
-/obj/item/weapon/fuelrod/proc/tick_life()
-	if(lifespan < 1)
+/obj/item/weapon/fuelrod/proc/tick_life(var/apply_heat = 0)
+	var/applied_insertion = get_insertion()
+	if(lifespan < 1 && life > 0)
 		life = 0
 	else if(life > 0)
-		life = max(0, life - (1 / lifespan))
+		if (decay_heat > 0 || apply_heat)
+			life = max(0, life - ((1 / lifespan) * applied_insertion))
 		if (life == 0 && health > 0)
 			name = "depleted [name]"
 		else if (decay_heat > 0)
-			return ((decay_heat * (mass / molar_mass)) / lifespan) * (min(life, 100) / 100)
+			return ((decay_heat * (mass / molar_mass)) / lifespan) * (min(life, 100) / 100) * applied_insertion
 	return 0
 
+/obj/item/weapon/fuelrod/proc/get_insertion()
+	var/applied_insertion = 1
+	if(istype(loc, /obj/machinery/power/fission) && icon_state != "rod_melt")
+		applied_insertion = insertion
+	return between(0, applied_insertion, 1)
+
+/obj/item/weapon/fuelrod/proc/is_melted()
+	return (icon_state == "rod_melt") ? 1 : 0
+
 /obj/item/weapon/fuelrod/proc/meltdown()
-	if (icon_state != "rod_melt")
+	if (!is_melted())
 		if (decay_heat > 0)
 			life = life * 10
 			decay_heat = decay_heat * 10
@@ -119,7 +130,18 @@
 	molar_mass = 0.235	// kg/mol
 	mass = 20 // kg
 	melting_point = 1405
-	decay_heat = 19540000 // MJ/mol
+	decay_heat = 19536350 // MJ/mol
+
+/obj/item/weapon/fuelrod/plutonium
+	name = "plutonium fuel rod"
+	desc = "A nuclear fuel rod."
+	color = "#cbcbcb"
+	specific_heat = 36	// J/(mol*K)
+	molar_mass = 0.244	// kg/mol
+	mass = 5 // kg
+	melting_point = 1405
+	decay_heat = 20342002 // MJ/mol
+	lifespan = 1800
 
 /obj/item/weapon/fuelrod/beryllium
 	name = "beryllium reflector"

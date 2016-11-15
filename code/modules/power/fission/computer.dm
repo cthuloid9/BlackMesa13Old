@@ -8,7 +8,7 @@
 
 /obj/machinery/computer/fission_monitor
 	name = "fission monitoring console"
-	desc = "Used to monitor active health sensors built into most of the crew's uniforms."
+	desc = "Used to monitor a linked fission core."
 	icon_keyboard = "tech_key"
 	icon_screen = "power:0"
 	light_color = "#ffcc33"
@@ -47,42 +47,75 @@
 	ui_interact(user)
 
 /obj/machinery/computer/fission_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(isnull(linked))
-		return
-	if(!src.powered() || !linked.powered())
+	if(!src.powered())
 		return
 
 	var/data[0]
 
-	data["integrity_percentage"] = round(linked.get_integrity())
-	var/datum/gas_mixture/env = null
-	if(!isnull(linked.loc) && !istype(linked.loc, /turf/space))
-		env = linked.loc.return_air()
-
-	if(!env)
-		data["ambient_temp"] = 0
-		data["ambient_pressure"] = 0
+	if(isnull(linked))
+		data["not_connected"] = 1
+	else if (!linked.powered())
+		data["powered"] = 0
+		data["integrity_percentage"] = round(linked.get_integrity())
+		data["core_temp"] = round(linked.temperature)
+		data["max_temp"] = round(linked.max_temp)
 	else
-		data["ambient_temp"] = round(env.temperature)
-		data["ambient_pressure"] = round(env.return_pressure())
+		data["not_connected"] = 0
+		data["powered"] = 1
+		data["integrity_percentage"] = round(linked.get_integrity())
+		var/datum/gas_mixture/env = null
+		if(!isnull(linked.loc) && !istype(linked.loc, /turf/space))
+			env = linked.loc.return_air()
 
-	data["core_temp"] = round(linked.temperature)
-	data["max_temp"] = round(linked.max_temp)
+		if(!env)
+			data["ambient_temp"] = 0
+			data["ambient_pressure"] = 0
+		else
+			data["ambient_temp"] = round(env.temperature)
+			data["ambient_pressure"] = round(env.return_pressure())
 
-	data["rods"] = new /list(linked.rods.len)
-	for(var/i=1,i<=linked.rods.len,i++)
-		var/obj/item/weapon/fuelrod/rod = linked.rods[i]
-		var/roddata[0]
-		roddata["name"] = rod.name
-		roddata["integrity_percentage"] = round(between(0, rod.integrity, 100))
-		roddata["life_percentage"] = round(between(0, rod.life, 100))
-		roddata["heat"] = round(rod.temperature)
-		roddata["melting_point"] = rod.melting_point
-		data["rods"][i] = roddata
+		data["core_temp"] = round(linked.temperature)
+		data["max_temp"] = round(linked.max_temp)
+		data["warn_point"] = round(linked.warning_point * 100)
+
+		data["rods"] = new /list(linked.rods.len)
+		for(var/i=1,i<=linked.rods.len,i++)
+			var/obj/item/weapon/fuelrod/rod = linked.rods[i]
+			var/roddata[0]
+			roddata["rod"] = "\ref[rod]"
+			roddata["name"] = rod.name
+			roddata["integrity_percentage"] = round(between(0, rod.integrity, 100))
+			roddata["life_percentage"] = round(between(0, rod.life, 100))
+			roddata["heat"] = round(rod.temperature)
+			roddata["melting_point"] = rod.melting_point
+			roddata["insertion"] = round(rod.insertion * 100)
+			data["rods"][i] = roddata
 
 	ui = nanomanager.try_update_ui(user, src, ui_key, ui, data, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "fission_engine.tmpl", "Nuclear Fission Core", 500, 300)
+		ui = new(user, src, ui_key, "fission_monitor.tmpl", "Nuclear Fission Core", 500, 300)
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
+
+/obj/machinery/computer/fission_monitor/Topic(href,href_list)
+	if(..())
+		return 1
+	if(isnull(linked) || !linked.powered())
+		return 1
+
+	if(href_list["rod_insertion"])
+		var/obj/item/weapon/fuelrod/rod = locate(href_list["rod_insertion"])
+		if(istype(rod) && rod.loc == linked)
+			var/new_insersion = input(usr,"Enter new insertion (0-100)%","Insertion control",rod.insertion * 100) as num
+			rod.insertion = between(0, new_insersion / 100, 100)
+
+	if(href_list["warn_point"])
+		var/new_warning = input(usr,"Enter new warning point (0-100)%","Warning point",linked.warning_point * 100) as num
+		linked.warning_point = between(0, new_warning / 100, 1)
+		if (linked.warning_point == 0)
+			message_admins("[key_name(usr)] switched off warning reports on [linked]",0,1)
+			log_game("[linked] warnings were switched off by [key_name(usr)]")
+
+	usr.set_machine(src)
+	src.add_fingerprint(usr)
